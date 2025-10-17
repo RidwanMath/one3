@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halaman Keren Saya</title>
+  <title>Halaman Interaktif Saya</title>
   <style>
-    /* ==== RESET ==== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      transition: all 0.3s ease;
     }
 
     body {
@@ -22,12 +22,15 @@
       justify-content: center;
       min-height: 100vh;
       text-align: center;
-      overflow-x: hidden;
+    }
+
+    body.light {
+      background: linear-gradient(135deg, #f8f9fa, #d7d2cc);
+      color: #222;
     }
 
     header {
       margin-bottom: 40px;
-      animation: fadeDown 1s ease-in-out;
     }
 
     header h1 {
@@ -37,11 +40,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    header p {
-      font-size: 1.2em;
-      opacity: 0.8;
-    }
-
     .card {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
@@ -49,18 +47,17 @@
       max-width: 400px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: fadeUp 1s ease-in-out;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    body.light .card {
+      background: rgba(255, 255, 255, 0.6);
+      color: #333;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     }
 
     .btn {
       display: inline-block;
-      margin-top: 20px;
+      margin: 15px 10px 0;
       padding: 12px 25px;
       font-size: 1em;
       color: #fff;
@@ -69,11 +66,10 @@
       border-radius: 30px;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.3s ease;
     }
 
     .btn:hover {
-      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      transform: scale(1.1);
     }
 
     footer {
@@ -82,14 +78,13 @@
       opacity: 0.7;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    #themeBtn {
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+      color: #222;
     }
 
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+    #themeBtn:hover {
+      background: linear-gradient(90deg, #fad0c4, #ff9a9e);
     }
   </style>
 </head>
@@ -100,14 +95,47 @@
   </header>
 
   <div class="card">
-    <p>Saya suka membuat hal-hal keren menggunakan HTML, CSS, dan JavaScript. 
-      Tujuan saya adalah membuat web yang tidak hanya berfungsi, tapi juga indah dilihat.</p>
+    <p>Saya suka membuat hal-hal keren menggunakan HTML, CSS, dan JavaScript.
+    Klik tombol di bawah untuk mencoba interaksi.</p>
 
-    <a href="#projects" class="btn">Lihat Proyek Saya</a>
+    <button class="btn" id="helloBtn">Sapa Saya!</button>
+    <button class="btn" id="themeBtn">Ubah Tema 🌗</button>
   </div>
 
   <footer>
-    © 2025 Read One — Dibuat dengan ❤️ dan kode
+    © 2025 Read One — Dibuat dengan ❤️ dan JavaScript
   </footer>
+
+  <script>
+    // === Interaksi Tombol Sapa ===
+    const helloBtn = document.getElementById('helloBtn');
+    helloBtn.addEventListener('click', () => {
+      const nama = prompt("Siapa namamu?");
+      if (nama) {
+        alert(`Halo, ${nama}! Senang bertemu denganmu 👋`);
+      } else {
+        alert("Kamu belum memasukkan nama 😅");
+      }
+    });
+
+    // === Tombol Ubah Tema ===
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+    let darkMode = true;
+
+    themeBtn.addEventListener('click', () => {
+      darkMode = !darkMode;
+      body.classList.toggle('light', !darkMode);
+      themeBtn.textContent = darkMode ? "Ubah Tema 🌗" : "Kembali ke Gelap 🌙";
+    });
+
+    // === Animasi kecil saat masuk ===
+    window.addEventListener('load', () => {
+      document.querySelector('header').style.opacity = 0;
+      setTimeout(() => {
+        document.querySelector('header').style.opacity = 1;
+      }, 300);
+    });
+  </script>
 </body>
 </html>
